@@ -6,7 +6,7 @@ provider "vault" {
 
 variable "vault_token" {}
 
-resource "vault_mount" "roboshop-engine" {
+resource "vault_mount" "infra-secrets" {
   path        = "roboshop"
   type        = "kv-v2"
   options = {
@@ -17,7 +17,7 @@ resource "vault_mount" "roboshop-engine" {
 }
 
 resource "vault_generic_secret" "ssh" {
-  path = "${vault_mount.roboshop-engine.path}/ssh"
+  path = "${vault_mount.infra-secrets.path}/ssh"
 
   data_json = <<EOT
 {
