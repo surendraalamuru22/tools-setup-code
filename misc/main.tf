@@ -17,7 +17,7 @@ resource "vault_mount" "roboshop-engine" {
 }
 
 resource "vault_generic_secret" "ssh" {
-  path = "vault_mount.roboshop-engine/ssh"
+  path = "${vault_mount.roboshop-engine.path}/ssh"
 
   data_json = <<EOT
 {
