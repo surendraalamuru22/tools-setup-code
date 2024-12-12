@@ -4,3 +4,7 @@ module "tools" {
   instance_type = each.value.instance_type
   tool_name = each.key
 }
+
+provider "aws" {
+  region = "us-east-1"
+}

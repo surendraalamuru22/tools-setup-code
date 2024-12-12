@@ -1,6 +1,4 @@
-provider "aws" {
-  region = "us-east-1"
-}
+
 
 resource "aws_instance" "vault" {
   ami           = "ami-0b4f379183e5706b9"
