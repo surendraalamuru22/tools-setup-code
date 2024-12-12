@@ -15,3 +15,14 @@ resource "vault_mount" "roboshop-engine" {
   }
   description = "This is an roboshop secrets"
 }
+
+resource "vault_generic_secret" "test" {
+  path = "vault_mount.roboshop-engine/test"
+
+  data_json = <<EOT
+{
+  "foo":   "bar",
+  "pizza": "cheese"
+}
+EOT
+}
