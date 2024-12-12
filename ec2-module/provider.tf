@@ -5,6 +5,3 @@ provider "vault" {
   token = "hvs.bf8mleOcB1L3QUPmhxVGAcZw"
 }
 
-provider "aws" {
-  region = "us-east-1"
-}

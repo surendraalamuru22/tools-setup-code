@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 resource "aws_security_group" "sg" {
   name        = "${var.tool_name}-sg"
   description = "Inbound allow for ${var.tool_name}"
