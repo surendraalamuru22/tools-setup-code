@@ -35,4 +35,19 @@ resource "aws_instance" "vault" {
   tags = {
     Name = var.tool_name
   }
+
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
+#      host     =
+    }
+
+    inline = [
+       "sudo labauto jenkins"
+    ]
+  }
+
 }
