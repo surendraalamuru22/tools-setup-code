@@ -6,6 +6,3 @@ module "tools" {
   sg_port       = each.value.port
 }
 
-provider "aws" {
-  region = "us-east-1"
-}
