@@ -1,4 +1,4 @@
-variable "tools" {
+variable "tool" {
   default = {
 
     vault = {

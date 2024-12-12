@@ -1,5 +1,5 @@
 module "tools" {
-  for_each = var.tools
+  for_each = var.tool
   source = "./ec2-module"
   instance_type = each.value.instance_type
   tool_name = each.key
