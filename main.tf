@@ -4,7 +4,6 @@ module "tools" {
   instance_type = each.value.instance_type
   tool_name = each.key
   sg_port       = each.value.port
-  token = var.vault_token
 }
 
 provider "aws" {
