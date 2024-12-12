@@ -16,13 +16,13 @@ resource "vault_mount" "roboshop-engine" {
   description = "This is an roboshop secrets"
 }
 
-resource "vault_generic_secret" "test" {
-  path = "vault_mount.roboshop-engine/test"
+resource "vault_generic_secret" "ssh" {
+  path = "vault_mount.roboshop-engine/ssh"
 
   data_json = <<EOT
 {
-  "foo":   "bar",
-  "pizza": "cheese"
+  "username":   "centos",
+  "password": "DevOps321"
 }
 EOT
 }
