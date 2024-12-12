@@ -8,7 +8,7 @@
 
 - name: install vault
   ansible.builtin.yum:
-    Name: vault
+    name: vault
     state: installed
 
 - name: cope hel file
