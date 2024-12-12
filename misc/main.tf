@@ -7,7 +7,7 @@ provider "vault" {
 variable "vault_token" {}
 
 resource "vault_mount" "infra-secrets" {
-  path        = "roboshop"
+  path        = "infra-secrets"
   type        = "kv-v2"
   options = {
     version = "2"
