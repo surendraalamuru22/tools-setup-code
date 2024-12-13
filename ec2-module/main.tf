@@ -1,5 +1,3 @@
-
-
 resource "aws_security_group" "sg" {
   name        = "${var.tool_name}-sg"
   description = "Inbound allow for ${var.tool_name}"
@@ -38,18 +36,18 @@ resource "aws_instance" "vault" {
     Name = var.tool_name
   }
 
-  provisioner "remote-exec" {
-
-    connection {
-      type     = "ssh"
-      user     = data.vault_generic_secret.ssh.data["username"]
-      password = data.vault_generic_secret.ssh.data["password"]
-#      host     =
-    }
-
-    inline = [
-       "sudo labauto jenkins"
-    ]
-  }
-
-}
+#  provisioner "remote-exec" {
+#
+#    connection {
+#      type     = "ssh"
+#      user     = data.vault_generic_secret.ssh.data["username"]
+#      password = data.vault_generic_secret.ssh.data["password"]
+##      host     =
+#    }
+#
+#    inline = [
+#       "sudo labauto jenkins"
+#    ]
+#  }
+#
+#}
