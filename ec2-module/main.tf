@@ -44,17 +44,23 @@ resource "aws_instance" "vault" {
   }
 }
 
-#provisioner "remote-exec" {
-#
-#  connection {
-#    type     = "ssh"
-#    user     = data.vault_generic_secret.ssh.data["username"]
-#    password = data.vault_generic_secret.ssh.data["password"]
-#    host = aws_instance.vault.
-#
-#  }
-#
-#  inline = [
-#    "sudo labauto jenkins"
-#  ]
-#}
+resource "null_resource" "connection" {
+
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
+      host = aws_instance.vault.id
+
+    }
+
+    inline = [
+      "sudo labauto jenkins"
+    ]
+  }
+
+}
+
+
