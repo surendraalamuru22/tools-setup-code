@@ -6,3 +6,5 @@ variable "tools" {
     }
   }
 }
+
+variable "vault_token" {}

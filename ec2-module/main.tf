@@ -33,19 +33,19 @@ resource "aws_instance" "vault" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
-#  provisioner "remote-exec" {
-#
-#    connection {
-#      type     = "ssh"
-#      user     = data.vault_generic_secret.ssh.data["username"]
-#      password = data.vault_generic_secret.ssh.data["password"]
-#
-#    }
-#
-#    inline = [
-#      "sudo labauto jenkins"
-#    ]
-#  }
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
+
+    }
+
+    inline = [
+      "sudo labauto jenkins"
+    ]
+  }
 
   tags = {
     Name = var.tool_name
