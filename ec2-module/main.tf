@@ -46,13 +46,17 @@ resource "aws_instance" "vault" {
 
 resource "null_resource" "connection" {
 
+  triggers = {
+    instance_id = aws_instance.vault.id
+  }
+
   provisioner "remote-exec" {
 
     connection {
       type     = "ssh"
       user     = data.vault_generic_secret.ssh.data["username"]
       password = data.vault_generic_secret.ssh.data["password"]
-      host = aws_instance.vault.id
+      host = aws_instance.vault.private_ip
 
     }
 
