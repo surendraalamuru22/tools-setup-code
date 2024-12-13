@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 module "tools" {
   source = "./ec2-module"
   for_each = var.tools
