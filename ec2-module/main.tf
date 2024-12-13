@@ -27,14 +27,16 @@ resource "aws_security_group" "sg" {
     Name = "${var.tool_name}-sg"
   }
 }
+
 resource "aws_instance" "vault" {
-  ami           = "ami-0b4f379183e5706b9"
-  instance_type = var.instance_type
+  ami                    = "ami-0b4f379183e5706b9"
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
   tags = {
     Name = var.tool_name
   }
+}
 
 #  provisioner "remote-exec" {
 #
