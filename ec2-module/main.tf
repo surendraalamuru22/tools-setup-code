@@ -33,11 +33,9 @@ resource "aws_instance" "vault" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
-  provisioner "local-exec" {
-    command = "sudo labauto jenkins"
-  }
-
-
+##  provisioner "local-exec" {
+##    command = "sudo labauto jenkins"
+#  }
 
   tags = {
     Name = var.tool_name
