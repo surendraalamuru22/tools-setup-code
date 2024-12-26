@@ -1,3 +1,6 @@
+provider "aws" {
+  region = "us-east-1"
+}
 
 #provider "vault" {
 #  address = "http://172.31.88.71:8200"
@@ -11,9 +14,7 @@ module "tools" {
   instance_type = each.value.instance_type
   tool_name = each.key
   sg_port       = each.value.port
-  private_zone_id = var.private_zone_id
+#  private_zone_id = var.private_zone_id
 }
 
-provider "aws" {
-  region = "us-east-1"
-}
+
