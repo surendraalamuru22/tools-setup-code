@@ -66,11 +66,18 @@ resource "aws_instance" "vault" {
 #}
 
 
-#resource "aws_route53_record" "vault-record" {
-#  zone_id = var.private_zone_id
-#  name    = "${var.tool_name}-surendra.internal"
-#  type    = "A"
-#  ttl     = 30
-#  records = [aws_instance.vault.private_ip]
-#}
+resource "aws_route53_record" "record-public" {
+  zone_id = var.zone_id
+  name    = "${var.tool_name}-${var.domain_name}"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.vault.public_ip]
+}
 
+resource "aws_route53_record" "record-private" {
+  zone_id = var.zone_id
+  name    = "${var.tool_name}-internal.${var.domain_name}"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.vault.private_ip]
+}
