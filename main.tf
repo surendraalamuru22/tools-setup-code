@@ -1,6 +1,6 @@
-provider "aws" {
-  region = "us-east-1"
-}
+#provider "aws" {
+#  region = "us-east-1"
+#}
 
 #provider "vault" {
 #  address = "http://172.31.88.71:8200"
