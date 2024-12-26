@@ -6,7 +6,7 @@
 #}
 
 module "tools" {
-  ource = "./ec2-module"
+  source = "./ec2-module"
   for_each = var.tools
   instance_type = each.value.instance_type
   tool_name = each.key
