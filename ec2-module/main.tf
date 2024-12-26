@@ -42,27 +42,35 @@ resource "aws_instance" "vault" {
   }
 }
 
-resource "null_resource" "connection" {
+#resource "null_resource" "connection" {
+#
+#  triggers = {
+#    instance_id = aws_instance.vault.id
+#  }
+#
+#  provisioner "remote-exec" {
+#
+#    connection {
+#      type     = "ssh"
+#      user     = data.vault_generic_secret.ssh.data["username"]
+#      password = data.vault_generic_secret.ssh.data["password"]
+#      host = aws_instance.vault.private_ip
+#
+#    }
+#
+#    inline = [
+#      "sudo labauto jenkins"
+#    ]
+#  }
+#
+#}
 
-  triggers = {
-    instance_id = aws_instance.vault.id
-  }
 
-  provisioner "remote-exec" {
-
-    connection {
-      type     = "ssh"
-      user     = data.vault_generic_secret.ssh.data["username"]
-      password = data.vault_generic_secret.ssh.data["password"]
-      host = aws_instance.vault.private_ip
-
-    }
-
-    inline = [
-      "sudo labauto jenkins"
-    ]
-  }
-
+resource "aws_route53_record" "vault-record" {
+  zone_id = var.private_zone_id
+  name    = "${var.tool_name}-surendra.internal"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.vault.private_ip]
 }
-
 
