@@ -68,7 +68,7 @@ resource "null_resource" "connection" {
 
 resource "aws_route53_record" "record-public" {
   zone_id = var.zone_id
-  name    = "${var.tool_name}-${var.domain_name}"
+  name    = "${var.tool_name}.${var.domain_name}"
   type    = "A"
   ttl     = 30
   records = [aws_instance.vault.public_ip]
