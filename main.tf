@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 provider "vault" {
-  address = "http://172.31.89.219:8200"
+  address = "http://vault-internal.surendra22.online:8200"
   skip_tls_verify = true
   token = var.vault_token
 }
