@@ -1,19 +1,152 @@
+terraform {
+  backend "s3" {
+    bucket = "terraform-tools"
+    key    = "vault-secrets/terraform.tfstate"
+    region = "us-east-1"
+
+  }
+}
+
 provider "vault" {
-  address         = "http://172.31.88.71:8200"
+  address         = "http://172.31.89.219:8200"
   token           = var.vault_token
   skip_tls_verify = true
 }
 
 variable "vault_token" {}
 
+resource "vault_mount" "roboshop" {
+  path        = "roboshop"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "RoboShop Dev Secrets"
+}
+
+resource "vault_generic_secret" "frontend" {
+  path = "${vault_mount.roboshop.path}/frontend"
+
+  data_json = <<EOT
+{
+  "catalogue_url":   "http://catalogue.surendra.online:8080/",
+  "cart_url":   "http://cart.surendra.online:8080/",
+  "user_url":   "http://user.surendra.online:8080/",
+  "shipping_url":   "http://shipping.surendra.online:8080/",
+  "payment_url":   "http://payment.surendra.online:8080/",
+  "CATALOGUE_HOST" : "catalogue.surendra.online",
+  "CATALOGUE_PORT" : 8080,
+  "USER_HOST" : "user.surendra.online",
+  "USER_PORT" : 8080,
+  "CART_HOST" : "cart.surendra.online",
+  "CART_PORT" : 8080,
+  "SHIPPING_HOST" : "shipping.surendra.online",
+  "SHIPPING_PORT" : 8080,
+  "PAYMENT_HOST" : "payment.surendra.online",
+  "PAYMENT_PORT" : 8080
+}
+EOT
+}
+
+resource "vault_generic_secret" "catalogue" {
+  path = "${vault_mount.roboshop.path}/catalogue"
+
+  data_json = <<EOT
+{
+  "MONGO": "true",
+  "MONGO_URL" : "mongodb://mongodb.surendra.online:27017/catalogue",
+  "DB_TYPE": "mongo",
+  "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/catalogue",
+  "DB_HOST": "mongodb.surendra.online",
+  "SCHEMA_FILE": "db/master-data.js"
+}
+EOT
+}
+
+resource "vault_generic_secret" "user" {
+  path = "${vault_mount.roboshop.path}/user"
+
+  data_json = <<EOT
+{
+  "MONGO": "true",
+  "MONGO_URL" : "mongodb://mongodb.surendra.online:27017/users",
+  "REDIS_URL" : "redis://redis.surendra.online:6379"
+}
+EOT
+}
+
+resource "vault_generic_secret" "cart" {
+  path = "${vault_mount.roboshop.path}/cart"
+
+  data_json = <<EOT
+{
+  "REDIS_HOST": "redis.surendra.online",
+  "CATALOGUE_HOST" : "catalogue.surendra.online",
+  "CATALOGUE_PORT" : "8080"
+}
+EOT
+}
+
+resource "vault_generic_secret" "shipping" {
+  path = "${vault_mount.roboshop.path}/shipping"
+
+  data_json = <<EOT
+{
+  "CART_ENDPOINT": "cart.surendra.online:8080",
+  "DB_HOST" : "mysql.surendra.online",
+  "mysql_root_password" : "RoboShop@1",
+  "DB_TYPE": "mysql",
+  "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/shipping",
+  "DB_USER": "root",
+  "DB_PASS": "RoboShop@1"
+}
+EOT
+}
+
+
+
+resource "vault_generic_secret" "payment" {
+  path = "${vault_mount.roboshop.path}/payment"
+
+  data_json = <<EOT
+{
+  "CART_HOST" : "cart.surendra.online",
+  "CART_PORT" : "8080",
+  "USER_HOST" : "user.surendra.online",
+  "USER_PORT" : "8080",
+  "AMQP_HOST" : "rabbitmq.surendra.online",
+  "AMQP_USER" : "roboshop",
+  "AMQP_PASS" : "roboshop123"
+}
+EOT
+}
+
+resource "vault_generic_secret" "mysql" {
+  path = "${vault_mount.roboshop.path}/mysql"
+
+  data_json = <<EOT
+{
+  "mysql_root_password" : "RoboShop@1"
+}
+EOT
+}
+
+resource "vault_generic_secret" "rabbitmq" {
+  path = "${vault_mount.roboshop.path}/rabbitmq"
+
+  data_json = <<EOT
+{
+  "user" : "roboshop",
+  "password" : "roboshop123"
+}
+EOT
+}
+
+
+###############
 resource "vault_mount" "infra-secrets" {
   path        = "infra-secrets"
-  type        = "kv-v2"
-  options = {
-    version = "2"
-    type    = "kv-v2"
-  }
-  description = "This is an roboshop secrets"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "All Infra Related Secrets"
 }
 
 resource "vault_generic_secret" "ssh" {
@@ -21,33 +154,9 @@ resource "vault_generic_secret" "ssh" {
 
   data_json = <<EOT
 {
-  "username":   "centos",
-  "password": "DevOps321"
+  "username" : "centos",
+  "password" : "DevOps321"
 }
 EOT
 }
 
-#resource "vault_mount" "roboshop-parameters" {
-#  path        = "roboshop-parameters"
-#  type        = "kv-v2"
-#  options = {
-#    version = "2"
-#    type    = "kv-v2"
-#  }
-#  description = "This is an roboshop secrets"
-#}
-#
-#resource "vault_generic_secret" "catalogue" {
-#  path = "${vault_mount.roboshop-parameters.path}/catalogue"
-#
-#  data_json = <<EOT
-#{
-#  "MONGO": "true",
-#  "MONGO_URL" : "mongodb://mongodb-dev.rdevopsb81.online:27017/catalogue",
-#  "DB_TYPE": "mongo",
-#  "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/catalogue",
-#  "DB_HOST": "mongodb-dev.rdevopsb81.online",
-#  "SCHEMA_FILE": "db/master-data.js"
-#}
-#EOT
-#}
