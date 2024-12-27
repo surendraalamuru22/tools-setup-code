@@ -42,42 +42,42 @@ resource "aws_instance" "vault" {
   }
 }
 
-#resource "null_resource" "connection" {
-#
-#  triggers = {
-#    instance_id = aws_instance.vault.id
-#  }
-#
-#  provisioner "remote-exec" {
-#
-#    connection {
-#      type     = "ssh"
-#      user     = data.vault_generic_secret.ssh.data["username"]
-#      password = data.vault_generic_secret.ssh.data["password"]
-#      host = aws_instance.vault.private_ip
-#
-#    }
-#
-#    inline = [
-#      "sudo labauto jenkins"
-#    ]
-#  }
-#
+resource "null_resource" "connection" {
+
+  triggers = {
+    instance_id = aws_instance.vault.id
+  }
+
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
+      host = aws_instance.vault.private_ip
+
+    }
+
+    inline = [
+      "echo hello world"
+    ]
+  }
+
+}
+
+
+#resource "aws_route53_record" "record-public" {
+#  zone_id = var.zone_id
+#  name    = "${var.tool_name}-${var.domain_name}"
+#  type    = "A"
+#  ttl     = 30
+#  records = [aws_instance.vault.public_ip]
 #}
-
-
-resource "aws_route53_record" "record-public" {
-  zone_id = var.zone_id
-  name    = "${var.tool_name}-${var.domain_name}"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.vault.public_ip]
-}
-
-resource "aws_route53_record" "record-private" {
-  zone_id = var.zone_id
-  name    = "${var.tool_name}-internal.${var.domain_name}"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.vault.private_ip]
-}
+#
+#resource "aws_route53_record" "record-private" {
+#  zone_id = var.zone_id
+#  name    = "${var.tool_name}-internal.${var.domain_name}"
+#  type    = "A"
+#  ttl     = 30
+#  records = [aws_instance.vault.private_ip]
+#}
