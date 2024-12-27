@@ -33,37 +33,45 @@ resource "aws_instance" "vault" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
-##  provisioner "local-exec" {
-##    command = "sudo labauto jenkins"
-#  }
+  root_block_device {
+    volume_size = var.volume_size
+  }
+
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      instance_interruption_behavior = "stop"
+      spot_instance_type             = "persistent"
+    }
+  }
 
   tags = {
     Name = var.tool_name
   }
 }
 
-resource "null_resource" "connection" {
-
-  triggers = {
-    instance_id = aws_instance.vault.id
-  }
-
-  provisioner "remote-exec" {
-
-    connection {
-      type     = "ssh"
-      user     = data.vault_generic_secret.ssh.data["username"]
-      password = data.vault_generic_secret.ssh.data["password"]
-      host = aws_instance.vault.private_ip
-
-    }
-
-    inline = [
-      "echo hello world"
-    ]
-  }
-
-}
+#resource "null_resource" "connection" {
+#
+#  triggers = {
+#    instance_id = aws_instance.vault.id
+#  }
+#
+#  provisioner "remote-exec" {
+#
+#    connection {
+#      type     = "ssh"
+#      user     = data.vault_generic_secret.ssh.data["username"]
+#      password = data.vault_generic_secret.ssh.data["password"]
+#      host = aws_instance.vault.private_ip
+#
+#    }
+#
+#    inline = [
+#      "echo hello world"
+#    ]
+#  }
+#
+#}
 
 
 resource "aws_route53_record" "record-public" {
