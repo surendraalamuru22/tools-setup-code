@@ -34,7 +34,7 @@
   ansible.builtin.shell: |
     gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/surendrareddy95/actions/runners/registration-token | jq .token
   register: token
-  become_user: ec2-user
+  become_user: centos
 
 #- name: Register runner
 #  ansible.builtin.shell: |
