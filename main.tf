@@ -13,7 +13,7 @@ module "tools" {
   for_each = var.tools
   instance_type = each.value.instance_type
   tool_name = each.key
-  sg_port       = each.value.port
+  sg_port       = each.value["port"]
   zone_id = var.zone_id
   domain_name = var.domain_name
   volume_size = each.value.volume_size
