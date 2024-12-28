@@ -36,14 +36,14 @@
   register: token
   become_user: centos
 
-#- name: Register runner
-#  ansible.builtin.shell: |
-#    ./config.sh --unattended --url https://github.com/raghudevopsb81 --token {{ token.stdout }}  --name {{ ansible_hostname }} --runnergroup Default
-#  become_user: github-runner
-#  args:
-#    chdir: /actions-runner
-#  ignore_errors: yes
-#
+- name: Register runner
+  ansible.builtin.shell: |
+    ./config.sh --unattended --url https://github.com/surendrareddy95 --token {{ token.stdout }}  --name {{ ansible_hostname }} --runnergroup Default
+  become_user: github-runner
+  args:
+    chdir: /actions-runner
+  ignore_errors: yes
+
 #- name: Copy Service file
 #  ansible.builtin.copy:
 #    src: github-runner.service
