@@ -1,5 +1,5 @@
 - name: set promt
-  ansible.builtin.shell: set-hostname {{tool_name}}
+  ansible.builtin.shell: set-prompt {{tool_name}}
 
 - name: Download Hashicorp repo file
   ansible.builtin.get_url:
