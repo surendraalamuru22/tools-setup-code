@@ -154,7 +154,7 @@ resource "vault_generic_secret" "ssh" {
 
   data_json = <<EOT
 {
-  "username" : "centos",
+  "username" : "ec2-user",
   "password" : "DevOps321"
 }
 EOT
