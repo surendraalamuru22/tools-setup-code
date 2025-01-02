@@ -28,8 +28,8 @@ resource "aws_security_group" "sg" {
   }
 }
 
-resource "aws_instance" "vault" {
-  ami                    = "ami-09c813fb71547fc4f"
+resource "aws_instance" "instance" {
+  ami                    = data.aws_ami.ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
@@ -80,7 +80,7 @@ resource "aws_route53_record" "record-public" {
   name    = "${var.tool_name}.${var.domain_name}"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.vault.public_ip]
+  records = [aws_instance.instance.public_ip]
 }
 
 resource "aws_route53_record" "record-private" {
@@ -88,5 +88,5 @@ resource "aws_route53_record" "record-private" {
   name    = "${var.tool_name}-internal.${var.domain_name}"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.vault.private_ip]
+  records = [aws_instance.instance.private_ip]
 }
