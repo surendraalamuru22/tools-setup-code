@@ -4,7 +4,7 @@
 # gh auth login -s admin:org
 
 - name: Set Prompt
-  ansible.builtin.shell: set-hostname {{ tool_name }}
+  ansible.builtin.shell: set-prompt {{ tool_name }}
 
 - name: Add github runner user
   ansible.builtin.user:
@@ -34,7 +34,7 @@
   ansible.builtin.shell: |
     gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/surendrareddy95/actions/runners/registration-token | jq .token
   register: token
-  become_user: centos
+  become_user: ec2-user
 
 - name: Register runner
   ansible.builtin.shell: |
