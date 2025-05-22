@@ -28,7 +28,7 @@ resource "aws_security_group" "sg" {
   }
 }
 
-resource "aws_instance" "vault" {
+resource "aws_instance" "instance" {
   ami                    = data.aws_ami.ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
@@ -54,7 +54,7 @@ resource "aws_instance" "vault" {
 resource "null_resource" "connection" {
 
   triggers = {
-    instance_id = aws_instance.vault.id
+    instance_id = aws_instance.instance.id
   }
 
   provisioner "remote-exec" {
@@ -63,7 +63,7 @@ resource "null_resource" "connection" {
       type     = "ssh"
       user     = data.vault_generic_secret.ssh.data["username"]
       password = data.vault_generic_secret.ssh.data["password"]
-      host = aws_instance.vault.private_ip
+      host = aws_instance.instance.private_ip
 
     }
 
