@@ -28,7 +28,7 @@ resource "aws_security_group" "sg" {
   }
 }
 
-resource "aws_instance" "instance" {
+resource "aws_instance" "vault" {
   ami                    = data.aws_ami.ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
