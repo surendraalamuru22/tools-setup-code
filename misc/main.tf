@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-tools"
+    bucket = "terraform-tool-bucket"
     key    = "vault-secrets/terraform.tfstate"
     region = "us-east-1"
 
@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "vault" {
-  address         = "http://vault-internal.surendra22.online:8200"
+  address         = "http://vault-internal.surendraalamuru22.online:8200"
   token           = var.vault_token
   skip_tls_verify = true
 }
@@ -27,20 +27,20 @@ resource "vault_generic_secret" "frontend" {
 
   data_json = <<EOT
 {
-  "catalogue_url":   "http://catalogue.surendra22.online:8080/",
-  "cart_url":   "http://cart.surendra22.online:8080/",
-  "user_url":   "http://user.surendra22.online:8080/",
-  "shipping_url":   "http://shipping.surendra22.online:8080/",
-  "payment_url":   "http://payment.surendra22.online:8080/",
-  "CATALOGUE_HOST" : "catalogue.surendra22.online",
+  "catalogue_url":   "http://catalogue.surendraalamuru22.online:8080/",
+  "cart_url":   "http://cart.surendraalamuru22.online:8080/",
+  "user_url":   "http://user.surendraalamuru22.online:8080/",
+  "shipping_url":   "http://shipping.surendraalamuru22.online:8080/",
+  "payment_url":   "http://payment.surendraalamuru22.online:8080/",
+  "CATALOGUE_HOST" : "catalogue.surendraalamuru22.online",
   "CATALOGUE_PORT" : 8080,
-  "USER_HOST" : "user.surendra22.online",
+  "USER_HOST" : "user.surendraalamuru22.online",
   "USER_PORT" : 8080,
-  "CART_HOST" : "cart.surendra22.online",
+  "CART_HOST" : "cart.surendraalamuru22.online",
   "CART_PORT" : 8080,
-  "SHIPPING_HOST" : "shipping.surendra22.online",
+  "SHIPPING_HOST" : "shipping.surendraalamuru22.online",
   "SHIPPING_PORT" : 8080,
-  "PAYMENT_HOST" : "payment.surendra22.online",
+  "PAYMENT_HOST" : "payment.surendraalamuru22.online",
   "PAYMENT_PORT" : 8080
 }
 EOT
@@ -52,10 +52,10 @@ resource "vault_generic_secret" "catalogue" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb.surendra22.online:27017/catalogue",
+  "MONGO_URL" : "mongodb://mongodb.surendraalamuru22.online:27017/catalogue",
   "DB_TYPE": "mongo",
   "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/catalogue",
-  "DB_HOST": "mongodb.surendra22.online",
+  "DB_HOST": "mongodb.surendraalamuru22.online",
   "SCHEMA_FILE": "db/master-data.js"
 }
 EOT
@@ -67,8 +67,8 @@ resource "vault_generic_secret" "user" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb.surendra22.online:27017/users",
-  "REDIS_URL" : "redis://redis.surendra22.online:6379"
+  "MONGO_URL" : "mongodb://mongodb.surendraalamuru22.online:27017/users",
+  "REDIS_URL" : "redis://redis.surendraalamuru22.online:6379"
 }
 EOT
 }
@@ -78,8 +78,8 @@ resource "vault_generic_secret" "cart" {
 
   data_json = <<EOT
 {
-  "REDIS_HOST": "redis.surendra22.online",
-  "CATALOGUE_HOST" : "catalogue.surendra22.online",
+  "REDIS_HOST": "redis.surendraalamuru22.online",
+  "CATALOGUE_HOST" : "catalogue.surendraalamuru22.online",
   "CATALOGUE_PORT" : "8080"
 }
 EOT
@@ -90,8 +90,8 @@ resource "vault_generic_secret" "shipping" {
 
   data_json = <<EOT
 {
-  "CART_ENDPOINT": "cart.surendra22.online:8080",
-  "DB_HOST" : "mysql.surendra22.online",
+  "CART_ENDPOINT": "cart.surendraalamuru22.online:8080",
+  "DB_HOST" : "mysql.surendraalamuru22.online",
   "mysql_root_password" : "RoboShop@1",
   "DB_TYPE": "mysql",
   "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/shipping",
@@ -108,11 +108,11 @@ resource "vault_generic_secret" "payment" {
 
   data_json = <<EOT
 {
-  "CART_HOST" : "cart.surendra22.online",
+  "CART_HOST" : "cart.surendraalamuru22.online",
   "CART_PORT" : "8080",
-  "USER_HOST" : "user.surendra22.online",
+  "USER_HOST" : "user.surendraalamuru22.online",
   "USER_PORT" : "8080",
-  "AMQP_HOST" : "rabbitmq.surendra22.online",
+  "AMQP_HOST" : "rabbitmq.surendraalamuru22.online",
   "AMQP_USER" : "roboshop",
   "AMQP_PASS" : "roboshop123"
 }
