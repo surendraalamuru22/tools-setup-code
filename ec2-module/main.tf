@@ -51,28 +51,28 @@ resource "aws_instance" "instance" {
   iam_instance_profile = length(var.policy_list) > 0 ? aws_iam_instance_profile.instance_profile[0].name : null
 }
 
-#resource "null_resource" "connection" {
-#
-#  triggers = {
-#    instance_id = aws_instance.vault.id
-#  }
-#
-#  provisioner "remote-exec" {
-#
-#    connection {
-#      type     = "ssh"
-#      user     = data.vault_generic_secret.ssh.data["username"]
-#      password = data.vault_generic_secret.ssh.data["password"]
-#      host = aws_instance.vault.private_ip
-#
-#    }
-#
-#    inline = [
-#      "echo hello world"
-#    ]
-#  }
-#
-#}
+resource "null_resource" "connection" {
+
+  triggers = {
+    instance_id = aws_instance.vault.id
+  }
+
+  provisioner "remote-exec" {
+
+    connection {
+      type     = "ssh"
+      user     = data.vault_generic_secret.ssh.data["username"]
+      password = data.vault_generic_secret.ssh.data["password"]
+      host = aws_instance.vault.private_ip
+
+    }
+
+    inline = [
+      "echo hello world"
+    ]
+  }
+
+}
 
 
 resource "aws_route53_record" "record-public" {
