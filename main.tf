@@ -2,11 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-provider "vault" {
-  address = "http://vault-internal.surendra22.online:8200"
-  skip_tls_verify = true
-  token = var.vault_token
-}
+#provider "vault" {
+#  address = "http://vault-internal.surendra22.online:8200"
+#  skip_tls_verify = true
+#  token = var.vault_token
+#}
 
 module "tools" {
   source = "./ec2-module"
