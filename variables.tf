@@ -19,9 +19,9 @@ variable "tools" {
 
 
 variable "domain_name" {
-  default = "surendra22.online"
+  default = "surendraalamuru22.online"
 }
 
 variable "zone_id" {
-  default = "Z02608971BQRPHGDXOK9I"
+  default = "Z1019832158GZY6KSWTMT"
 }
