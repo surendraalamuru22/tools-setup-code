@@ -32,15 +32,15 @@ resource "vault_generic_secret" "frontend" {
   "user_url":   "http://user.surendraalamuru22.online:8080/",
   "shipping_url":   "http://shipping.surendraalamuru22.online:8080/",
   "payment_url":   "http://payment.surendraalamuru22.online:8080/",
-  "CATALOGUE_HOST" : "catalogue.surendraalamuru22.online",
+  "CATALOGUE_HOST" : "catalogue-dev.surendraalamuru22.online",
   "CATALOGUE_PORT" : 8080,
-  "USER_HOST" : "user.surendraalamuru22.online",
+  "USER_HOST" : "user-dev.surendraalamuru22.online",
   "USER_PORT" : 8080,
-  "CART_HOST" : "cart.surendraalamuru22.online",
+  "CART_HOST" : "cart-dev.surendraalamuru22.online",
   "CART_PORT" : 8080,
-  "SHIPPING_HOST" : "shipping.surendraalamuru22.online",
+  "SHIPPING_HOST" : "shipping-dev.surendraalamuru22.online",
   "SHIPPING_PORT" : 8080,
-  "PAYMENT_HOST" : "payment.surendraalamuru22.online",
+  "PAYMENT_HOST" : "payment-dev.surendraalamuru22.online",
   "PAYMENT_PORT" : 8080
 }
 EOT
