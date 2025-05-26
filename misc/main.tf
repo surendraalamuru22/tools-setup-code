@@ -15,15 +15,15 @@ provider "vault" {
 
 variable "vault_token" {}
 
-resource "vault_mount" "roboshop" {
-  path        = "roboshop"
+resource "vault_mount" "roboshop-dev" {
+  path        = "roboshop-dev"
   type        = "kv"
   options     = { version = "2" }
   description = "RoboShop Dev Secrets"
 }
 
 resource "vault_generic_secret" "frontend" {
-  path = "${vault_mount.roboshop.path}/frontend"
+  path = "${vault_mount.roboshop-dev.path}/frontend"
 
   data_json = <<EOT
 {
@@ -47,7 +47,7 @@ EOT
 }
 
 resource "vault_generic_secret" "catalogue" {
-  path = "${vault_mount.roboshop.path}/catalogue"
+  path = "${vault_mount.roboshop-dev.path}/catalogue"
 
   data_json = <<EOT
 {
@@ -62,7 +62,7 @@ EOT
 }
 
 resource "vault_generic_secret" "user" {
-  path = "${vault_mount.roboshop.path}/user"
+  path = "${vault_mount.roboshop-dev.path}/user"
 
   data_json = <<EOT
 {
@@ -74,7 +74,7 @@ EOT
 }
 
 resource "vault_generic_secret" "cart" {
-  path = "${vault_mount.roboshop.path}/cart"
+  path = "${vault_mount.roboshop-dev.path}/cart"
 
   data_json = <<EOT
 {
@@ -86,7 +86,7 @@ EOT
 }
 
 resource "vault_generic_secret" "shipping" {
-  path = "${vault_mount.roboshop.path}/shipping"
+  path = "${vault_mount.roboshop-dev.path}/shipping"
 
   data_json = <<EOT
 {
@@ -104,7 +104,7 @@ EOT
 
 
 resource "vault_generic_secret" "payment" {
-  path = "${vault_mount.roboshop.path}/payment"
+  path = "${vault_mount.roboshop-dev.path}/payment"
 
   data_json = <<EOT
 {
@@ -120,7 +120,7 @@ EOT
 }
 
 resource "vault_generic_secret" "mysql" {
-  path = "${vault_mount.roboshop.path}/mysql"
+  path = "${vault_mount.roboshop-dev.path}/mysql"
 
   data_json = <<EOT
 {
@@ -130,7 +130,7 @@ EOT
 }
 
 resource "vault_generic_secret" "rabbitmq" {
-  path = "${vault_mount.roboshop.path}/rabbitmq"
+  path = "${vault_mount.roboshop-dev.path}/rabbitmq"
 
   data_json = <<EOT
 {
