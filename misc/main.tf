@@ -27,11 +27,11 @@ resource "vault_generic_secret" "frontend" {
 
   data_json = <<EOT
 {
-  "catalogue_url":   "http://catalogue.surendraalamuru22.online:8080/",
-  "cart_url":   "http://cart.surendraalamuru22.online:8080/",
-  "user_url":   "http://user.surendraalamuru22.online:8080/",
-  "shipping_url":   "http://shipping.surendraalamuru22.online:8080/",
-  "payment_url":   "http://payment.surendraalamuru22.online:8080/",
+  "catalogue_url":   "http://catalogue-dev.surendraalamuru22.online:8080/",
+  "cart_url":   "http://cart-dev.surendraalamuru22.online:8080/",
+  "user_url":   "http://user-dev.surendraalamuru22.online:8080/",
+  "shipping_url":   "http://shipping-dev.surendraalamuru22.online:8080/",
+  "payment_url":   "http://payment-dev.surendraalamuru22.online:8080/",
   "CATALOGUE_HOST" : "catalogue-dev.surendraalamuru22.online",
   "CATALOGUE_PORT" : 8080,
   "USER_HOST" : "user-dev.surendraalamuru22.online",
@@ -52,10 +52,10 @@ resource "vault_generic_secret" "catalogue" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb.surendraalamuru22.online:27017/catalogue",
+  "MONGO_URL" : "mongodb://mongodb-dev.surendraalamuru22.online:27017/catalogue",
   "DB_TYPE": "mongo",
   "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/catalogue",
-  "DB_HOST": "mongodb.surendraalamuru22.online",
+  "DB_HOST": "mongodb-dev.surendraalamuru22.online",
   "SCHEMA_FILE": "db/master-data.js"
 }
 EOT
@@ -67,8 +67,8 @@ resource "vault_generic_secret" "user" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb.surendraalamuru22.online:27017/users",
-  "REDIS_URL" : "redis://redis.surendraalamuru22.online:6379"
+  "MONGO_URL" : "mongodb://mongodb-dev.surendraalamuru22.online:27017/users",
+  "REDIS_URL" : "redis://redis-dev.surendraalamuru22.online:6379"
 }
 EOT
 }
@@ -78,8 +78,8 @@ resource "vault_generic_secret" "cart" {
 
   data_json = <<EOT
 {
-  "REDIS_HOST": "redis.surendraalamuru22.online",
-  "CATALOGUE_HOST" : "catalogue.surendraalamuru22.online",
+  "REDIS_HOST": "redis-dev.surendraalamuru22.online",
+  "CATALOGUE_HOST" : "catalogue-dev.surendraalamuru22.online",
   "CATALOGUE_PORT" : "8080"
 }
 EOT
