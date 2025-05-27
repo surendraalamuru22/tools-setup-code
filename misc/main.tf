@@ -90,7 +90,7 @@ resource "vault_generic_secret" "shipping" {
 
   data_json = <<EOT
 {
-  "CART_ENDPOINT": "cart.surendraalamuru22.online:8080",
+  "CART_ENDPOINT": "cart:8080",
   "DB_HOST" : "mysql.surendraalamuru22.online",
   "mysql_root_password" : "RoboShop@1",
   "DB_TYPE": "mysql",
